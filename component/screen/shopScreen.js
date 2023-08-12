@@ -109,6 +109,7 @@ export default function BuyScreen({navigation}){
     }, 2000);
   }, []);
 
+
   const openShop = () => {
     if(type == 0){
       navigation.navigate('GetSignupScreen', {username: username})

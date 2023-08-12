@@ -46,13 +46,6 @@ export default function App() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator screenOptions={{headerShown: false}}>
-          {/* <Tab.Screen 
-              name="Chat" component={ChatScreen} 
-              options={{
-                  tabBarIcon: ({ color, size }) => (
-                  <Icon name="message1" size={size} color={color} />
-                  ),
-              }}/> */}
           <Tab.Screen 
             name="Home" 
             component={HomeStackScreen} 
@@ -316,6 +309,12 @@ function HomeStackScreen({ route }) {
         options={{headerShown: false  }}
       />
     
+    <HomeStack.Screen
+        name="Pay1"
+        component={Pay}
+        initialParams={{ username}}
+        options={{ title: "Mô tả sản phẩm" }}
+      />
     </HomeStack.Navigator>
   );
 }

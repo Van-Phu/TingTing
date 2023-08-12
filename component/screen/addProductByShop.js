@@ -21,6 +21,7 @@ import {
   import { useRoute } from '@react-navigation/native';
   import { NavigationContainer } from "@react-navigation/native";
   import { isUndefined, log } from 'util';
+
   
   export default function AddProductByShop ({navigation}){
       const [productShop, setProductShop] = useState([])
@@ -28,57 +29,43 @@ import {
       const { username } = route.params;
       const [userCollab, setUserCollab] = useState([])
       const [keyword, setKeyword] = useState('')
+      const [shop , setShop] = useState([])
   
-    //   const [randomBackgroundColor, setRandomBackgroundColor] = useState(getRandomColor());
-    //   const [colorArray, setColorArray] = useState([]);
-  
-    //   function getRandomColor() {
-    //       const letters = '0123456789ABCDEF';
-    //       let color = '#';
-    //       for (let i = 0; i < 6; i++) {
-    //           color += letters[Math.floor(Math.random() * 16)];
-    //       }
-    //       return color;
-    //   }
-  
-    //   useEffect(() => {
-    //       const colors = [];
-    //       for (let i = 0; i < 5; i++) { 
-    //           colors.push(getRandomColor());
-    //       }
-    //       setColorArray(colors);
-    //   }, []);
-  
-    //   useEffect(() => {
-    //       const interval = setInterval(() => {
-    //           setRandomBackgroundColor(colorArray[Math.floor(Math.random() * colorArray.length)]);
-    //       }, 2000); 
-    //       return () => clearInterval(interval);
-    //   }, [colorArray]);
-  
-  
+      const fetchData = async (username) => {
+        try {
+          LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
       
-      useEffect(() => {
-        LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-        const fetchData = async () => {
-          try {
-            const response = await fetch(
-              'http://192.168.25.1:5000/api/v1/users/getUserByName/' + username
+          const userResponse = await fetch(
+            'http://192.168.25.1:5000/api/v1/users/getUserByName/' + username
+          );
+          const userData = await userResponse.json();
+          setUserCollab(userData);
+      
+          if (userData && productShop) {
+            const productResponse = await fetch(
+              'http://192.168.25.1:5000/api/v1/product/getProductByShopId/' + userData._id
             );
-            const data = await response.json();
-            setUserCollab(data);
-            if (productShop) {
-              const productResponse = await fetch('http://192.168.25.1:5000/api/v1/product/getProductByShopId/' + data._id);
-              const productData = await productResponse.json();
-              setProductShop(productData);
-              
-            }
-          } catch (error) {
-            console.log(error);
+            const productData = await productResponse.json();
+            setProductShop(productData);
           }
-        };
-        fetchData();
-      }, [productShop]);
+      
+          const supplierResponse = await fetch(
+            'http://192.168.25.1:5000/api/v1/supplier/getSuppliersByIdCollab/' + userData._id
+          );
+          const supplierData = await supplierResponse.json();
+          setShop(supplierData);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      
+      // Sử dụng hàm fetchData
+      useEffect(() => {
+        fetchData(username);
+      }, [username, productShop]);
+      
+
+    //   console.log(shop)
   
       const getValueId = (id) => {
           navigation.navigate('Describe', {id, username: username})
@@ -180,7 +167,7 @@ import {
                           )}   
                       </View>
                       <View style={{ with: "60%", height: "80%", marginLeft: 15, alignContent: 'center', justifyContent: 'center'}}>
-                          <Text style={{color: "white", fontSize: 22, fontWeight: "bold"}}>{userCollab.username}</Text>
+                          <Text style={{color: "white", fontSize: 22, fontWeight: "bold"}}>{shop.nameShop}</Text>
                           <View style={{flexDirection: 'row'}}>
                               <Icon name="star" size={24} color={"#ffdf00"}/>
                               <Text style={{color: "white", fontSize: 18}}>4.9/5.0 | </Text>

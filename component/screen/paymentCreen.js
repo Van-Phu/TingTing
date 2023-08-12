@@ -77,12 +77,11 @@ function PaymentScreen({navigation}) {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
 
-  console.log(orderPayment)
   const PaymentHandler = async () => {
     try {
       if(cost < totalPrice && typeOfPayment === "Thanh toán bằng ví"){
         ToastAndroid.show("Tài khoản hiện tại không đủ!!", ToastAndroid.SHORT)
-      }else{
+      }else if(cost > totalPrice && typeOfPayment === "Thanh toán bằng ví"){
         for (const data of orderPayment) {
           const res = await fetch('http://192.168.25.1:5000/api/v1/delivery/addNewDelivery', {
             method: 'POST',
@@ -116,8 +115,40 @@ function PaymentScreen({navigation}) {
             );
           }
         }
+      }else{
+        for (const data of orderPayment) {
+          const res = await fetch('http://192.168.25.1:5000/api/v1/delivery/addNewDelivery', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              idProduct: data[0].items.product,
+              customer: data[0].customer,
+              totalPrice: data[0].items.price,
+              address: address,
+              typeOfPayment: typeOfPayment,
+              delivery: delivery,
+              status: data[0].status,
+              quantity: data[0].items.quantity
+            })
+            }
+          );
+    
+          const responseData = await res.json();
+          if (res.status === 200) {
+            handlerPaid();
+          } else {
+            const message = responseData.message.toString();
+            console.log(message);
+            Alert.alert(
+              'Thông báo!',
+              message,
+              [{ text: 'OK', style: 'cancel' }]
+            );
+          }
+        }
       }
-      
     } catch (error) {
       console.log('Mua hàng không thành công!!', error);
     }
