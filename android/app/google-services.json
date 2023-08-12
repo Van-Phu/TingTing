@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "64795530334",
+    "project_id": "nomoapp-889c7",
+    "storage_bucket": "nomoapp-889c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64795530334:android:86ea23faa2097a658c90cf",
+        "android_client_info": {
+          "package_name": "com.nomoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64795530334-h7ajs8hc6qsi4ghcra428hdvrevtja54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByO2LovWySAe3jXW3RkMVncJyGE8ML0Oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64795530334-h7ajs8hc6qsi4ghcra428hdvrevtja54.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

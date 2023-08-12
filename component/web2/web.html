@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý đăng ký nhà cung cấp</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    button {
+      padding: 10px 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quản lý đăng ký nhà cung cấp</h1>
+
+  <table id="signupDrawn"> <!-- Corrected table ID here -->
+    <tr>
+      <th>Name Shop</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>CCCD</th>
+      <th>Action</th>
+    </tr>
+  </table>
+
+  <script>
+    async function getSuppliers() {
+      try {
+        const response = await fetch('/sigupcollabdrawn');
+        const suppliers = await response.json();
+        renderSuppliers(suppliers);
+      } catch (error) {
+        console.error('Failed to fetch suppliers', error);
+      }
+    }
+
+    function renderSuppliers(suppliers) {
+      const table = document.getElementById('signupDrawn'); // Corrected table ID here
+      table.innerHTML = `
+        <tr>
+          <th>Name Shop</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>CCCD</th>
+          <th>Action</th>
+        </tr>
+      `;
+      suppliers.forEach(function (supplier) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${supplier.nameShop}</td>
+          <td>${supplier.address}</td>
+          <td>${supplier.phone}</td>
+          <td>${supplier.cccd}</td>
+          <td>
+            <button onclick="acceptSupplier('${supplier.cccd}')">Accept</button>
+            <button onclick="rejectSupplier('${supplier.cccd}')">Reject</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    async function acceptSupplier(cccd) {
+      try {
+        const response = await fetch(`/suppliers/${cccd}/accept`, { method: 'POST' });
+        if (response.ok) {
+          alert('Supplier accepted and moved to accepted table');
+          getSuppliers(); // Refresh the table after accepting
+        } else {
+          console.error('Failed to accept supplier', response.status);
+        }
+      } catch (error) {
+        console.error('Failed to accept supplier', error);
+      }
+    }
+
+    async function rejectSupplier(cccd) {
+      try {
+        const response = await fetch(`/suppliers/${cccd}/reject`, { method: 'DELETE' });
+        if (response.ok) {
+          alert('Supplier rejected and removed from registration table');
+          getSuppliers(); 
+        } else {
+          console.error('Failed to reject supplier', response.status);
+        }
+      } catch (error) {
+        console.error('Failed to reject supplier', error);
+      }
+    }
+
+   
+    getSuppliers();
+  </script>
+</body>
+</html>

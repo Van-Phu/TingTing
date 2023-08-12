@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý đăng ký nhà cung cấp</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    button {
+      padding: 10px 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quản lý đơn hàng</h1>
+
+  <table id="getDelivery"> <!-- Corrected table ID here -->
+    <tr>
+      <th>Name Shop</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>CCCD</th>
+      <th>Action</th>
+    </tr>
+  </table>
+
+  <script>
+    async function getSuppliers() {
+      try {
+        const response = await fetch('/getAllDelivery');
+        const delivery = await response.json();
+        renderSuppliers(delivery);
+      } catch (error) {
+        console.error('Failed to fetch suppliers', error);
+      }
+    }
+
+    function renderSuppliers(delivery) {
+      const table = document.getElementById('getDelivery'); // Corrected table ID here
+      table.innerHTML = `
+        <tr>
+            <th>id</th>
+          <th>Total Price</th>
+          <th>Address</th>
+          <th>quantity</th>
+          <th>Action</th>
+        </tr>
+      `;
+      delivery.forEach(function (delivery) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${delivery._id}</td>
+          <td>${delivery.totalPrice}</td>
+          <td>${delivery.address}</td>
+          <td>${delivery.quantity}</td>
+          <td>
+            <button onclick="acceptSupplier('${delivery._id}')">Accept</button>
+            <button onclick="rejectSupplier('${delivery._id}')">Reject</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    async function acceptSupplier(id) {
+      try {
+        const response = await fetch(`/delivery/${id}/accept`, { method: 'POST' });
+        if (response.ok) {
+          alert('Supplier accepted and moved to accepted table');
+          getSuppliers(); // Refresh the table after accepting
+        } else {
+          console.error('Failed to accept supplier', response.status);
+        }
+      } catch (error) {
+        console.error('Failed to accept supplier', error);
+      }
+    }
+
+    async function rejectSupplier(id) {
+      try {
+        const response = await fetch(`/delivery/${id}/reject`, { method: 'DELETE' });
+        if (response.ok) {
+          alert('Supplier rejected and removed from registration table');
+          getSuppliers(); 
+        } else {
+          console.error('Failed to reject supplier', response.status);
+        }
+      } catch (error) {
+        console.error('Failed to reject supplier', error);
+      }
+    }
+
+   
+    getSuppliers();
+  </script>
+</body>
+</html>
