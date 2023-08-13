@@ -28,6 +28,8 @@ import GetSignupScreen from './getSignupShopScreen'
 import SignupSupplier from './sigupSupplier';
 import GetSignupUserSceen from './getSignupUserScreen'
 import Login from './loginScreen'
+import profileShop from './profileShop';
+import accountAndProtect from './accountAndProtect';
 import { useRoute } from '@react-navigation/native';
 import {
   KeyboardAvoidingView
@@ -316,7 +318,7 @@ function HomeStackScreen({ route }) {
       />
       <ShopStack.Screen
         name="AccountAndProtectShop"
-        component={acountAndProtect}
+        component={accountAndProtect}
         initialParams={{ username }}
         options={{headerShown: false  }}
       />

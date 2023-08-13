@@ -34,6 +34,10 @@ function HomeScreen({navigation}) {
   const [inputText, setInputText] = useState('');
   const [type, setType] = useState() 
   const [refreshing, setRefreshing] = React.useState(false);
+  const productReverse = product.reverse()
+  const productFlashSaleReverse = productFlashSale.reverse()
+
+  // console.log(productReverse)
   
 
   useEffect(() => {
@@ -338,7 +342,7 @@ const onRefresh = React.useCallback(() => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         horizontal={true}
-        data={productFlashSale}
+        data={productFlashSaleReverse}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
         />
@@ -359,7 +363,7 @@ const onRefresh = React.useCallback(() => {
       <View style={{width: '100%', alignItems:'center', justifyContent:'center', height:'100%'}}>
           <FlatList
               numColumns={2}
-              data={product}
+              data={productReverse}
               renderItem={renderAllItem}
               keyExtractor={(_, index) => index.toString()}
           />

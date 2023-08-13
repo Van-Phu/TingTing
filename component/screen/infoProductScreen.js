@@ -241,7 +241,7 @@ function InfoProductScreen({navigation}){
                                         <Text style={{fontSize:18, color:'black', fontWeight:'bold'}}>{shop.address}</Text>
                                     </View>
                                     <TouchableOpacity onPress={handleChatScreen} style={{height: 70, width: 100, backgroundColor:'tomato', alignItems:'center', justifyContent:'center', borderRadius: 20}}>
-                                        <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Nhắn tin</Text>
+                                        <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Truy cập</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -253,7 +253,7 @@ function InfoProductScreen({navigation}){
                     <Text style={{fontSize: 30, color:'black', fontWeight:'bold'}}>${product.price}</Text>
                   </View>
                   <TouchableOpacity onPress={() => addToCart()} style={{width: 300, height:'100%', backgroundColor:'tomato', alignItems:'center', justifyContent:'center', borderRadius: 10}}>
-                      <Text style={{color: 'tomato', fontSize: 20, fontWeight: 'bold', width: 300, color:'white', alignItems:'center',justifyContent:'center', textAlign:'center'}}>Mua Ngay</Text>
+                      <Text style={{color: 'tomato', fontSize: 20, fontWeight: 'bold', width: 300, color:'white', alignItems:'center',justifyContent:'center', textAlign:'center'}}>Thêm vào giỏ hàng</Text>
                   </TouchableOpacity>
                 </View>
                 
@@ -303,7 +303,7 @@ function InfoProductScreen({navigation}){
                             
                           </View>
                           <TouchableOpacity onPress={handleChatScreen} style={{height: 70, width: 100, backgroundColor:'tomato', alignItems:'center', justifyContent:'center', borderRadius: 20}}>
-                              <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Nhắn tin</Text>
+                              <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Truy cập</Text>
                           </TouchableOpacity>
                       </View>
                   </View>
@@ -320,7 +320,7 @@ function InfoProductScreen({navigation}){
                  
                 </View>
                 <TouchableOpacity onPress={() => addToCart()} style={{width: 300, height:'100%', backgroundColor:'tomato', alignItems:'center', justifyContent:'center', borderRadius: 10}}>
-                    <Text style={{color: 'tomato', fontSize: 20, fontWeight: 'bold', width: 300, color:'white', alignItems:'center',justifyContent:'center', textAlign:'center'}}>Mua Ngay</Text>
+                    <Text style={{color: 'tomato', fontSize: 20, fontWeight: 'bold', width: 300, color:'white', alignItems:'center',justifyContent:'center', textAlign:'center'}}>Thêm vào giỏ hàng</Text>
                 </TouchableOpacity>
               </View>
               
