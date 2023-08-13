@@ -258,7 +258,7 @@ function HomeStackScreen({ route }) {
         name="Profile"
         component={Profile}
         initialParams={{username}}
-        options={{ title: "Sản phẩm nhà cung cấp" }}
+        options={{  headerShown: false }}
       />
       <ShopStack.Screen
         name="Pay"
@@ -305,6 +305,18 @@ function HomeStackScreen({ route }) {
       <ShopStack.Screen
         name="HomeStackScreen"
         component={HomeStackScreen}
+        initialParams={{ username }}
+        options={{headerShown: false  }}
+      />
+      <ShopStack.Screen
+        name="ProfileShop"
+        component={profileShop}
+        initialParams={{ username }}
+        options={{headerShown: false  }}
+      />
+      <ShopStack.Screen
+        name="AccountAndProtectShop"
+        component={acountAndProtect}
         initialParams={{ username }}
         options={{headerShown: false  }}
       />

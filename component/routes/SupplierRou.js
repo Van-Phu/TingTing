@@ -23,4 +23,18 @@ app.get('/getSuppliersByIdCollab/:idCollab', async (req, res) => {
   }
 });
 
+app.patch("/updateSuppliersByIdCollab/:_id", async (request, response) => {
+  const { _id } = request.params;
+  const updates = request.body;
+  try {
+    const supplier = await supplierModel.findByIdAndUpdate(_id, updates, { new: true });
+    response.send({
+      message: "Update Thành Công", 
+      supplier: supplier
+    });
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 module.exports = app;
