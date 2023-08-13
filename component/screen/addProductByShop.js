@@ -152,8 +152,9 @@ import {
                               <Iconnicon size={24} name='search' color={'#f3f3f3'} />
                           </TouchableOpacity>
                       </View>   
-                      <TouchableOpacity style={{ right: 15, width: "10%", position: 'absolute' }}>
-                          <IconnMateri size={35} name='dots-horizontal' color={'#f3f3f3'} />
+                      <TouchableOpacity style={{ right: 15, width: "10%", position: 'absolute' }} 
+                         onPress={() => navigation.navigate("ProfileShop")}>
+                          <Iconnicon size={35} name='settings-outline' color={'#f3f3f3'} />
                       </TouchableOpacity>
                   </View>
                   <View style={{width: "100%", height: "50%", marginTop: 40, marginLeft: 10, flexDirection: 'row'}}>
